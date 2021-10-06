@@ -46,33 +46,33 @@ public class Convertisseur_Corlay_Nobili {
     }
     public static float CelciusVersKelvin ( float tempC) {
         float tempK ;
-        tempK = tempC + 273,15 ;
+        tempK = tempC + (273,15) ;
         return (tempK) ;
         
     }
     public static float KelvinVersCelcius ( float tempK) {
         float tempC;
-        tempC = tempK-273,15 ;
+        tempC = tempK-(273,15) ;
         return (tempC);
     }
-    public static float FarenheitVersCelcius ( float tempC) {
-        float tempC;
-        tempC = tempF/1,8 - 32/1,8 ;
+    public static float FarenheitVersCelcius ( float tempF) {
+        float tempC ;
+        tempC = (5/9)*(tempF-32)  ;
         return (tempC);
     }
     public static float CelsiusVersFarenheit ( float tempC) {
         float tempF;
-        tempF = tempC*1,8 + 32;
+        tempF = tempC*(9/5) + 32;
         return (tempF);
     }
     public static float KelvinVersFarenheit ( float tempK) {
         float tempF;
-        tempF = (tempK - 273,15)*1,8 + 32 ;
+        tempF = (tempK - (273,15))/(5/9) + (32) ;
         return (tempF);
     }
     public static float FarenheitVersKelvin ( float tempF) {
         float tempK;
-        tempK = (tempF - 32)/1,8 + 273,15;
+        tempK = (tempF - 32)*(5/9) + (273,15) ;
         return (tempK);
     }
 }
