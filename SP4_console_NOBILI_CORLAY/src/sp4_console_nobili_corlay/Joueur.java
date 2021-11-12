@@ -15,18 +15,19 @@ public class Joueur {
     int [] ListeJetons = new int[21];
     int nombreJetonsRestants = ListeJetons.length ;
     
-    public void Joueur(String NomJ1){
-        nom = NomJ1 ;
+    public void Joueur(String NomJoueur){
+        nom = NomJoueur ;
     }
     
-    public void affecterCouleur(String CouleurJ1){
-        couleur = CouleurJ1 ;
+    public void affecterCouleur(String CouleurJoueur){
+        couleur = CouleurJoueur ;
     }
     
-    public boolean ajouterJeton(int Jeton){
+    public boolean ajouterJeton(int JetonJoueur){
            if(nombreJetonsRestants!=21){
-               ListeJetons[nombreJetonsRestants]=Jeton ;
+               ListeJetons[nombreJetonsRestants]=JetonJoueur ;
            }
            
     }
+    
 }
