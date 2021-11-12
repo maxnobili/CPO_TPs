@@ -26,7 +26,13 @@ public class Joueur {
     public boolean ajouterJeton(int JetonJoueur){
            if(nombreJetonsRestants!=21){
                ListeJetons[nombreJetonsRestants]=JetonJoueur ;
+               return true ;
            }
+           else {
+               return false ;
+           }
+           
+           
            
     }
     
