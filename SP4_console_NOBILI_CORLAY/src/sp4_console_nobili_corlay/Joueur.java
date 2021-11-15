@@ -9,7 +9,7 @@ package sp4_console_nobili_corlay;
  *
  * @author maxim
  */
-public class Joueur {
+public class Joueur { 
     String nom ;
     String couleur ;
     int [] ListeJetons = new int[21];
@@ -35,5 +35,5 @@ public class Joueur {
            
            
     }
-    
 }
+
