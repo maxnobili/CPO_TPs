@@ -9,16 +9,19 @@ package sp4_console_nobili_corlay;
  * @author maxim
  */
 public class Partie { 
-    int [] ListeJoueurs = new int [2];
+    Joueur [] ListeJoueurs = new Joueur [2];
     Joueur joueurCourant;
     Grille grilleJeu;
    
-    public Partie(){
+    public Partie(Joueur joueur1,Joueur joueur2){
        
     }
    
     public void initialiserPartie(){
-       
+       grilleJeu = new Grille();
+       for(int i=0; i<21 ; i++){
+           ListeJetons[i] = ListeJoueurs[0].couleur;
+       }
     }
    
     public void debuterPartie(){
@@ -26,7 +29,17 @@ public class Partie {
     }
    
     public void attribuerCouleursAuxJoueurs(){
-       
+       Random rn = new Random();
+       int temp = rn.nextInt(1) ;
+       if (temp == 1){
+           ListeJoueurs[0].couleur = "rouge";
+           ListeJoueurs[1].couleur = "jaune";
+       }
+       else{
+           ListeJoueurs[0].couleur = "jaune";
+           ListeJoueurs[1].couleur = "rouge";
+       }
+
     }
    
 }
