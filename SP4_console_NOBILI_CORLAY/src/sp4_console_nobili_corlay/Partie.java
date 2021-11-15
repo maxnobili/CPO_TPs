@@ -13,7 +13,7 @@ public class Partie {
     Joueur joueurCourant;
     Grille grilleJeu;
    
-    public Partie(Joueur,Joueur){
+    public Partie(){
        
     }
    
