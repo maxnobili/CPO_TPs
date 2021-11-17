@@ -131,18 +131,23 @@ public class Grille {
         return false;
     }
 
-    }
+    
     
     public void tasserGrille(int){
         
     }
     
-    public boolean colonneRemplie(int){
-        
+    public boolean colonneRemplie(int colonne){
+        for( int i=0; i<6 ; i++){
+            if(CelluleJeu[i][colonne]==null){
+                return false ;
+            }
+        }
+        return true ;
     }
     
-    public boolean placerDesintegrateur(int,int){
-        
+    public boolean placerDesintegrateur(int ligne,int colonne){
+        CelluleJeu[ligne][colonne]=
     }
     
     public boolean placerTrouNoir(int,int){
@@ -152,6 +157,11 @@ public class Grille {
     public boolean supprimerJeton(int,int){
         
     }
+    
+    public recupererJeton(){
+    
+    }
+
 }
 
-
+}
