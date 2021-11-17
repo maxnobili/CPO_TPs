@@ -11,7 +11,7 @@ package sp4_console_nobili_corlay;
 public class Jeton { 
     String Couleur;
     
-    public String Jeton(String CouleurJoueur){
+    public Jeton(String CouleurJoueur){
         Couleur = CouleurJoueur ;
     }
     public String lireCouleur(){
