@@ -49,7 +49,13 @@ public class Cellule {
     }
     
     public boolean placerDesintegrateur(){
-        
+        if(desintegrateur == false){
+            desintegrateur = true;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public boolean presenceTrouNoir(){
@@ -62,7 +68,10 @@ public class Cellule {
     }
     
     public boolean presenceDesintegrateur(){
-        
+        if(desintegrateur == true){
+            return true;
+        }
+        return false ;
     }
     
     public String lireCouleurDuJeton(){
@@ -76,7 +85,11 @@ public class Cellule {
     }
     
     public boolean recupererDesintegrateur(){
-        
+        if(desintegrateur == true){
+            desintegrateur = false;
+            return true;
+        }
+        return false ;
     }
     
     public boolean activerTrouNoir(){
