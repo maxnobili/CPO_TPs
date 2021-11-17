@@ -12,8 +12,9 @@ package sp4_console_nobili_corlay;
 public class Joueur { 
     String nom ;
     String couleur ;
-    int [] ListeJetons = new int[21];
+    Jeton [] ListeJetons = new Jeton[21];
     int nombreJetonsRestants = ListeJetons.length ;
+    int nombreDesintegrateurs = 0 ;
     
     public void Joueur(String NomJoueur){
         nom = NomJoueur ;
@@ -23,7 +24,7 @@ public class Joueur {
         couleur = CouleurJoueur ;
     }
     
-    public boolean ajouterJeton(int JetonJoueur){
+    public boolean ajouterJeton(Jeton JetonJoueur){
            if(nombreJetonsRestants!=21){
                ListeJetons[nombreJetonsRestants]=JetonJoueur ;
                return true ;
@@ -31,9 +32,17 @@ public class Joueur {
            else {
                return false ;
            }
-           
-           
-           
+    }
+    public void obtenirDesintegrateur(){
+        nombreDesintegrateurs = nombreDesintegrateurs + 1 ;
+    }
+    
+    public boolean utiliserDesintegrateur(){
+        if (nombreDesintegrateurs == 0){
+            return false ;
+        }
+        nombreDesintegrateurs = nombreDesintegrateurs - 1 ;
+        return true ;
     }
 }
 
