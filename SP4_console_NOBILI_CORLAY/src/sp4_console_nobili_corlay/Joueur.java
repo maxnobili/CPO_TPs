@@ -16,7 +16,7 @@ public class Joueur {
     int nombreJetonsRestants = ListeJetons.length ;
     int nombreDesintegrateurs = 0 ;
     
-    public void Joueur(String NomJoueur){
+    public Joueur(String NomJoueur){
         nom = NomJoueur ;
     }
     
