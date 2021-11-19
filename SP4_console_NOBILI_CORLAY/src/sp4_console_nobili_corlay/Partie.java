@@ -16,7 +16,7 @@ public class Partie {
     Joueur [] ListeJoueurs = new Joueur [2];
     Joueur joueurCourant;
     Grille grilleJeu;
-   
+    int jetrest = 0;
    
     public Partie(Joueur joueur1,Joueur joueur2){
        ListeJoueurs[0] = joueur1;
@@ -33,7 +33,7 @@ public class Partie {
     }
    
     public void debuterPartie(){
-        Random rn = new Random();
+       Random rn = new Random();
        int jdep = rn.nextInt(1) ;
        if (jdep == 0){
            joueurCourant = ListeJoueurs[0];
@@ -41,24 +41,47 @@ public class Partie {
        if (jdep == 1){
            joueurCourant = ListeJoueurs[1];
        }
-       while (grilleJeu.etreGagnantePourJoueur() != false && grilleJeu.etreRemplie() == true){
+       attribuerCouleursAuxJoueurs();
+       while (grilleJeu.etreGagnantePourJoueur(joueurCourant) == false && grilleJeu.etreRemplie() == true){
+           System.out.println(joueurCourant.nom);
+           grilleJeu.afficherGrilleSurConsole();
            System.out.println("Donnez la colonne dans laquelle vous souhaitez jouer:");
            int colonne = scanner.nextInt();
-           if (colonne != 1 && colonne != 2 && colonne != 3 && colonne != 4 && colonne != 5 && colonne != 6 && colonne != 7 ){
+           if (colonne != 0 && colonne != 1 && colonne != 2 && colonne != 3 && colonne != 4 && colonne != 5 && colonne != 6 ){
                System.out.println("Vous avez commit l'irréparable...Réessayez");
                continue;
            }
-           if (grilleJeu.colonneRemplie == true){
+           if (grilleJeu.colonneRemplie(colonne) == true){
                System.out.println("La colonne est remplie");
                continue;
            }
-           for (int i = 21 ; i < 21 ; i--)
+           for (int i = 20 ; i > 0 ; i--){
                if (joueurCourant.ListeJetons[i] != null){
-                   int jetrest = i;
+                   jetrest = i;
+                   joueurCourant.ListeJetons[jetrest] = null;
                    break;
                }
-           joueurCourant.ListeJetons[jetrest] = null;
+           }
+           Jeton jeton = joueurCourant.ListeJetons[jetrest-1];
+           grilleJeu.ajouterJetonDansColonne(jeton, colonne);
            
+           if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
+               break;
+           }
+           if (joueurCourant == ListeJoueurs[1]){
+               joueurCourant = ListeJoueurs[0];
+           }
+           else{
+               joueurCourant = ListeJoueurs[1];
+           }
+       }
+       if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
+           if (joueurCourant == ListeJoueurs[1]){
+               System.out.println("Le gagnant est " + ListeJoueurs[0].nom);
+           }
+           if (joueurCourant == ListeJoueurs[0]){
+               System.out.println("Le gagnant est " + ListeJoueurs[1].nom);
+           }
        }
     }
    
@@ -77,3 +100,4 @@ public class Partie {
     }
    
 }
+
