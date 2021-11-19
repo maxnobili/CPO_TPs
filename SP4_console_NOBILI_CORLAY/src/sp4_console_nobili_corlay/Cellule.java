@@ -13,7 +13,7 @@ public class Cellule {
     boolean trouNoir;
     boolean desintegrateur;
     
-    public void Cellule(){
+    public Cellule(){
         jetonCourant = null ;
         desintegrateur = false;
         trouNoir = false;
@@ -76,7 +76,6 @@ public class Cellule {
     
     public String lireCouleurDuJeton(){
         if(jetonCourant!=null){
-            jetonCourant.lireCouleur() ;
             return jetonCourant.Couleur ;
         }
         else{
@@ -103,5 +102,6 @@ public class Cellule {
         }
     }
 }
+
 
 
