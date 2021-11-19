@@ -83,8 +83,8 @@ public class Grille {
     
     public boolean etreGagnantePourJoueur(Joueur J){
         String couleurJ=J.couleur ;
-        for(int x=0; x<=3; x++){
-            for (int y=0; y<=5; y++){
+        for(int x=0; x<4; x++){
+            for (int y=0; y<6; y++){
                 if (couleurJ==CelluleJeu[x][y+1].lireCouleurDuJeton()){
                     if (couleurJ==CelluleJeu[x][y+2].lireCouleurDuJeton()){
                         if(couleurJ==CelluleJeu[x][y+3].lireCouleurDuJeton()){
@@ -95,8 +95,8 @@ public class Grille {
             }
         }
         
-        for (int i=0; i<=6; i++){
-            for (int j=0; j<=2; j++){
+        for (int i=0; i<3; i++){
+            for (int j=0; j<7; j++){
                 if (couleurJ==CelluleJeu[i+1][j].lireCouleurDuJeton()){
                     if(couleurJ==CelluleJeu[i+2][j].lireCouleurDuJeton()){ 
                         if(couleurJ==CelluleJeu[i+3][j].lireCouleurDuJeton()){
@@ -106,8 +106,8 @@ public class Grille {
                 }
             }
         }
-        for(int x=0; x<=3; x++){
-            for (int y=0; y<=2; y++){
+        for(int x=0; x<4; x++){
+            for (int y=0; y<3; y++){
                 if ( couleurJ==CelluleJeu[x+1][y+1].lireCouleurDuJeton()){ 
                     if(couleurJ==CelluleJeu[x+2][y+2].lireCouleurDuJeton()){ 
                         if(couleurJ==CelluleJeu[x+3][y+3].lireCouleurDuJeton()){
@@ -117,8 +117,8 @@ public class Grille {
                 }
             }
         }
-        for(int x=0; x<=3; x++){
-            for (int y=3; y<=5; y++){
+        for(int x=0; x<4; x++){
+            for (int y=3; y<6; y++){
                 if (couleurJ==CelluleJeu[x-1][y+1].lireCouleurDuJeton()){ 
                     if(couleurJ==CelluleJeu[x-2][y+2].lireCouleurDuJeton()){ 
                         if(couleurJ==CelluleJeu[x-3][y+3].lireCouleurDuJeton()){
@@ -147,15 +147,25 @@ public class Grille {
     }
     
     public boolean placerDesintegrateur(int ligne,int colonne){
-        CelluleJeu[ligne][colonne]=
+        if(CelluleJeu[ligne][colonne].presenceDesintegrateur()==true){
+            return false ;
+        }
+        else{
+            CelluleJeu[ligne][colonne].placerDesintegrateur() ;
+            return true ;
+        }
     }
     
     public boolean placerTrouNoir(int,int){
         
     }
     
-    public boolean supprimerJeton(int,int){
-        
+    public boolean supprimerJeton(int Ligne ,int Colonne ){
+        if(CelluleJeu[Ligne][Colonne]!=null ){    
+            CelluleJeu[Ligne][Colonne]= null ;
+            return true ;
+        }
+        return false ;
     }
     
     public recupererJeton(){
