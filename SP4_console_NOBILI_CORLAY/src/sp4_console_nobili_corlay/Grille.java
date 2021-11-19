@@ -54,16 +54,14 @@ public class Grille {
     public void afficherGrilleSurConsole(){
         for( int i=0; i<6; i++){
             for( int j=0; j<7; j++){
-                if( CelluleJeu[i][j]!=null){
-                    if( lireCouleurDuJeton(j,i)=="rouge"){
-                        System.out.print("\033[31m O");
-                    }  
-                    else{
+                if( lireCouleurDuJeton(i,j)=="rouge"){
+                   System.out.print("\033[31m O");
+                }  
+                if( lireCouleurDuJeton(i,j)=="jaune"){
                         System.out.print("\033[33m O");
-                    }
                 }
-                else{
-                    System.out.print(" ");
+                if( lireCouleurDuJeton(i,j)=="vide"){
+                    System.out.print("\033[30m O");
                 }
             }
             System.out.print("\n");
@@ -83,12 +81,14 @@ public class Grille {
     
     public boolean etreGagnantePourJoueur(Joueur J){
         String couleurJ=J.couleur ;
-        for(int x=0; x<4; x++){
-            for (int y=0; y<6; y++){
-                if (couleurJ==CelluleJeu[x][y+1].lireCouleurDuJeton()){
-                    if (couleurJ==CelluleJeu[x][y+2].lireCouleurDuJeton()){
-                        if(couleurJ==CelluleJeu[x][y+3].lireCouleurDuJeton()){
-                            return true;
+        for(int x=0; x<6; x++){
+            for (int y=0; y<4; y++){
+                if (couleurJ == CelluleJeu[x][y].lireCouleurDuJeton()){
+                    if (couleurJ == CelluleJeu[x][y+1].lireCouleurDuJeton()){
+                        if (couleurJ == CelluleJeu[x][y+2].lireCouleurDuJeton()){
+                            if(couleurJ == CelluleJeu[x][y+3].lireCouleurDuJeton()){
+                                return true;
+                            }
                         }
                     }
                 }
@@ -97,32 +97,38 @@ public class Grille {
         
         for (int i=0; i<3; i++){
             for (int j=0; j<7; j++){
-                if (couleurJ==CelluleJeu[i+1][j].lireCouleurDuJeton()){
-                    if(couleurJ==CelluleJeu[i+2][j].lireCouleurDuJeton()){ 
-                        if(couleurJ==CelluleJeu[i+3][j].lireCouleurDuJeton()){
-                            return true;
+                if (couleurJ == CelluleJeu[i][j].lireCouleurDuJeton()){
+                    if (couleurJ == CelluleJeu[i+1][j].lireCouleurDuJeton()){
+                        if(couleurJ == CelluleJeu[i+2][j].lireCouleurDuJeton()){ 
+                            if(couleurJ == CelluleJeu[i+3][j].lireCouleurDuJeton()){
+                                return true;
+                            }
                         }
                     }
                 }
             }
         }
-        for(int x=0; x<4; x++){
-            for (int y=0; y<3; y++){
-                if ( couleurJ==CelluleJeu[x+1][y+1].lireCouleurDuJeton()){ 
-                    if(couleurJ==CelluleJeu[x+2][y+2].lireCouleurDuJeton()){ 
-                        if(couleurJ==CelluleJeu[x+3][y+3].lireCouleurDuJeton()){
-                            return true;
+        for(int x=5; x>2; x--){
+            for (int y=0; y<4; y++){
+                if (couleurJ == CelluleJeu[x][y].lireCouleurDuJeton()){
+                    if ( couleurJ == CelluleJeu[x-1][y+1].lireCouleurDuJeton()){ 
+                        if(couleurJ == CelluleJeu[x-2][y+2].lireCouleurDuJeton()){ 
+                            if(couleurJ == CelluleJeu[x-3][y+3].lireCouleurDuJeton()){
+                                return true;
+                            }
                         }
                     }
                 }
             }
         }
-        for(int x=0; x<4; x++){
-            for (int y=3; y<6; y++){
-                if (couleurJ==CelluleJeu[x-1][y+1].lireCouleurDuJeton()){ 
-                    if(couleurJ==CelluleJeu[x-2][y+2].lireCouleurDuJeton()){ 
-                        if(couleurJ==CelluleJeu[x-3][y+3].lireCouleurDuJeton()){
-                            return true;
+        for(int x=0; x<3; x++){
+            for (int y=0; y<4; y++){
+                if (couleurJ == CelluleJeu[x][y].lireCouleurDuJeton()){
+                    if (couleurJ==CelluleJeu[x+1][y+1].lireCouleurDuJeton()){ 
+                        if(couleurJ==CelluleJeu[x+2][y+2].lireCouleurDuJeton()){ 
+                            if(couleurJ==CelluleJeu[x+3][y+3].lireCouleurDuJeton()){
+                                return true;
+                            }
                         }
                     }
                 }
@@ -133,13 +139,22 @@ public class Grille {
 
     
     
-    public void tasserGrille(int){
-        
+    public void tasserGrille(int colonne){
+        for( int i=5; i>0 ; i--){
+            if(CelluleJeu[i][colonne]==null){
+                if(CelluleJeu[i - 1][colonne]!=null){
+                    CelluleJeu[i][colonne] = CelluleJeu[i - 1][colonne];
+                    CelluleJeu[i - 1][colonne] = null;
+                }
+                
+            }
+                
+        }
     }
     
     public boolean colonneRemplie(int colonne){
         for( int i=0; i<6 ; i++){
-            if(CelluleJeu[i][colonne]==null){
+            if(CelluleJeu[i][colonne].lireCouleurDuJeton()=="vide"){
                 return false ;
             }
         }
@@ -156,8 +171,14 @@ public class Grille {
         }
     }
     
-    public boolean placerTrouNoir(int,int){
-        
+    public boolean placerTrouNoir(int ligne,int colonne){
+        if(CelluleJeu[ligne][colonne].presenceTrouNoir()==true){
+            return false ;
+        }
+        else{
+            CelluleJeu[ligne][colonne].placerTrouNoir() ;
+            return true ;
+        }
     }
     
     public boolean supprimerJeton(int Ligne ,int Colonne ){
@@ -168,10 +189,10 @@ public class Grille {
         return false ;
     }
     
-    public recupererJeton(){
     
+    public Jeton recupererJeton(int lignevisee, int colonnevisee){
+        CelluleJeu[lignevisee][colonnevisee].jetonCourant = null;
+        return CelluleJeu[lignevisee][colonnevisee].jetonCourant ;
     }
-
-}
 
 }
