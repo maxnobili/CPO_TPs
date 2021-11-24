@@ -60,19 +60,24 @@ public class Grille {
                 if( lireCouleurDuJeton(i,j)=="jaune"){
                         System.out.print("\033[33m O");
                 }
-                if( lireCouleurDuJeton(i,j)=="vide"){
+                if (CelluleJeu[i][j].presenceTrouNoir()==true){
+                    System.out.print("\033[34m O");
+                }
+                if( lireCouleurDuJeton(i,j)=="vide" && CelluleJeu[i][j].presenceTrouNoir()==false){
                     System.out.print("\033[30m O");
                 }
             }
             System.out.print("\n");
-        }
+        }    
     }
     
     public boolean celluleOccupee(int LigneDonnee ,int ColonneDonnee){
-        if( CelluleJeu[LigneDonnee][ColonneDonnee].lireCouleurDuJeton() != null ){
+        if( CelluleJeu[LigneDonnee][ColonneDonnee].lireCouleurDuJeton() != "vide" ){
             return true ;
         }
-        return false ;
+        else{
+            return false ;
+        }
     }
     
     public String lireCouleurDuJeton(int LigneDonnee ,int ColonneDonnee){
@@ -140,11 +145,11 @@ public class Grille {
     
     
     public void tasserGrille(int colonne){
-        for( int i=5; i>0 ; i--){
-            if(CelluleJeu[i][colonne]==null){
-                if(CelluleJeu[i - 1][colonne]!=null){
-                    CelluleJeu[i][colonne] = CelluleJeu[i - 1][colonne];
-                    CelluleJeu[i - 1][colonne] = null;
+        for( int i=5; i>=0 ; i--){
+            if(CelluleJeu[i][colonne].jetonCourant==null){
+                if(celluleOccupee(i+1 , colonne)== true ){
+                    CelluleJeu[i][colonne].jetonCourant = CelluleJeu[i - 1][colonne].jetonCourant;
+                    CelluleJeu[i - 1][colonne].jetonCourant = null;
                 }
                 
             }
