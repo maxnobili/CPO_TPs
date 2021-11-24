@@ -30,8 +30,8 @@ public class Cellule {
         }
     }
     
-    public Jeton recupererJeton(Jeton Jeton){
-        return Jeton;
+    public Jeton recupererJeton(){
+        return jetonCourant;
     }
     public boolean supprimerJeton(){
         jetonCourant = null;
@@ -92,7 +92,7 @@ public class Cellule {
     }
     
     public boolean activerTrouNoir(){
-        if (trouNoir == true& jetonCourant != null){
+        if (trouNoir == true && jetonCourant == null){
             jetonCourant = null;
             trouNoir = false;
             return true;
@@ -102,6 +102,5 @@ public class Cellule {
         }
     }
 }
-
 
 
