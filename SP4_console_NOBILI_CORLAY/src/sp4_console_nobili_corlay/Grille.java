@@ -53,25 +53,23 @@ public class Grille {
     public void afficherGrilleSurConsole(){
         for( int i=0; i<6; i++){
             for( int j=0; j<7; j++){
-                if( lireCouleurDuJeton(i,j)=="rouge"){
-                   System.out.print("\033[31m O");
-                }  
-                if( lireCouleurDuJeton(i,j)=="jaune"){
-                        System.out.print("\033[33m O");
+                if (CelluleJeu[i][j].presenceTrouNoir()==false && CelluleJeu[i][j].presenceDesintegrateur()==true){
+                        System.out.print("\033[34m O");
                 }
-                if (CelluleJeu[i][j].presenceTrouNoir()==true){
+                else if (CelluleJeu[i][j].presenceTrouNoir()==true){
                     System.out.print("\033[34m O");
                 }
-                if( lireCouleurDuJeton(i,j)=="vide" && CelluleJeu[i][j].presenceTrouNoir()==false){
-                    System.out.print("\033[30m O");
+                else if (CelluleJeu[i][j].presenceDesintegrateur()==true){
+                    System.out.print("\033[35m O");
                 }
-                if (CelluleJeu[i][j].presenceDesintegrateur()==true){
-                    if (CelluleJeu[i][j].presenceTrouNoir()==true){
-                        System.out.print("\033[34m O");
-                    }
-                    if (CelluleJeu[i][j].presenceTrouNoir()==false){
-                        System.out.print("\033[35m O");
-                    }
+                else if( lireCouleurDuJeton(i,j)=="rouge"){
+                   System.out.print("\033[31m O");
+                }  
+                else if( lireCouleurDuJeton(i,j)=="jaune"){
+                        System.out.print("\033[33m O");
+                }
+                else {
+                    System.out.print("\033[30m O");
                 }
             }
             System.out.print("\n");
