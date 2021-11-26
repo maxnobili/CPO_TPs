@@ -181,7 +181,7 @@ public class Partie {
                     if (grilleJeu.celluleOccupee(i , colonne)== false && grilleJeu.CelluleJeu[i][colonne].presenceTrouNoir() == false ){
                         grilleJeu.ajouterJetonDansColonne(jeton, colonne);
                         if( grilleJeu.CelluleJeu[i][colonne].presenceDesintegrateur() == true){
-                            ListeJoueur[JetonCOurant].nombreDesintegrateurs = 0 ;
+                            joueurCourant.nombreDesintegrateurs += 1 ;
                         }
                         grilleJeu.afficherGrilleSurConsole();
                         break;
@@ -201,7 +201,6 @@ public class Partie {
                 if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
 
                     break;
-
                 }
 
                 if (joueurCourant == ListeJoueurs[1]){
@@ -261,6 +260,85 @@ public class Partie {
             }
             if (choix==3){
                 
+                System.out.println(" Dans quelle colonne souhaitez vous désintégrer un jeton?");
+                int colonnedes = scanner.nextInt();
+                System.out.println(" Dans quelle ligne souhaitez vous désintégrer un jeton?");
+                int lignedes = scanner.nextInt();
+                
+                if (colonnedes != 0 && colonnedes != 1 && colonnedes != 2 && colonnedes != 3 && colonnedes != 4 && colonnedes != 5 && colonnedes != 6 ){
+                    System.out.println("Vous avez commit l'irréparable, la colonne n'existe pas...Réessayez");
+                    continue;
+                }
+                if (lignedes != 0 && lignedes != 1 && lignedes != 2 && lignedes != 3 && lignedes != 4 && lignedes != 5){
+                    System.out.println("Vous avez commit l'irréparable, la ligne n'existe pas...Réessayez");
+                    continue;
+                }
+                if (grilleJeu.celluleOccupee(lignedes , colonnedes)== false && grilleJeu.CelluleJeu[lignedes][colonnedes].lireCouleurDuJeton() == joueurCourant.couleur){
+                    System.out.println("Vous ne pouvez choisir qu'un jeton adversaire !");
+                    continue;
+                }
+                
+                grilleJeu.CelluleJeu[lignedes][colonnedes].supprimerJeton();
+                grilleJeu.tasserGrille(colonnedes);
+                grilleJeu.afficherGrilleSurConsole();
+                joueurCourant.utiliserDesintegrateur() ;
+                
+                if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
+                    
+                    if (joueurCourant == ListeJoueurs[1]){
+                        joueurCourant = ListeJoueurs[0] ;
+                    }
+                    else{
+                        joueurCourant = ListeJoueurs[1];
+                    }
+                    
+                    if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == false){
+                        break;
+                    }
+                }
+                
+                if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == false){
+                    
+                    if (joueurCourant == ListeJoueurs[1]){
+                        joueurCourant = ListeJoueurs[0] ;
+                    }
+                    else{
+                        joueurCourant = ListeJoueurs[1];
+                    }
+                    
+                    if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
+                        break;
+                    }
+                }
+                
+                if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
+                    
+                    if (joueurCourant == ListeJoueurs[1]){
+                        joueurCourant = ListeJoueurs[0] ;
+                    }
+                    else{
+                        joueurCourant = ListeJoueurs[1];
+                    }
+                    
+                    if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
+                        if (joueurCourant == ListeJoueurs[1]){
+                            joueurCourant = ListeJoueurs[0] ;
+                        }
+                        else{
+                            joueurCourant = ListeJoueurs[1];
+                        }
+                        System.out.println(joueurCourant+" a perdu car il a fait une faute de jeu !!!! ");
+                        break;
+                    }
+                }
+                
+                
+                if (joueurCourant == ListeJoueurs[1]){
+                    joueurCourant = ListeJoueurs[0] ;
+                }
+                else{
+                    joueurCourant = ListeJoueurs[1];
+                }
             }
         }
 
