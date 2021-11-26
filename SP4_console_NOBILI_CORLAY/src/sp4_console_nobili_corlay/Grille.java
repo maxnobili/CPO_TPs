@@ -27,7 +27,6 @@ public class Grille {
             if (CelluleJeu[5-i][ColonneJoueur].affecterJeton(jeton) == true){
                 return true ;
             }
-                //attention de haut en bas mais plus simple si de bas en haut dans l'affichage 
         }
         return false ;
     }
@@ -65,6 +64,14 @@ public class Grille {
                 }
                 if( lireCouleurDuJeton(i,j)=="vide" && CelluleJeu[i][j].presenceTrouNoir()==false){
                     System.out.print("\033[30m O");
+                }
+                if (CelluleJeu[i][j].presenceDesintegrateur()==true){
+                    if (CelluleJeu[i][j].presenceTrouNoir()==true){
+                        System.out.print("\033[34m O");
+                    }
+                    if (CelluleJeu[i][j].presenceTrouNoir()==false){
+                        System.out.print("\033[35m O");
+                    }
                 }
             }
             System.out.print("\n");
