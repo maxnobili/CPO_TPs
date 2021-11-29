@@ -91,12 +91,14 @@ public class Partie {
             grilleJeu.placerDesintegrateur(ligneds, colonneds);
             
         }
+        attribuerCouleursAuxJoueurs();
+        System.out.println(ListeJoueurs[0].couleur);
         
         for(int i=0; i<21 ; i++){
 
-           ListeJoueurs[0].ListeJetons[i] = new Jeton("rouge");
+           ListeJoueurs[0].ListeJetons[i] = new Jeton(ListeJoueurs[0].couleur);
 
-           ListeJoueurs[1].ListeJetons[i] = new Jeton("jaune");
+           ListeJoueurs[1].ListeJetons[i] = new Jeton(ListeJoueurs[1].couleur);
 
         }
 
@@ -124,7 +126,6 @@ public class Partie {
 
         }
 
-        attribuerCouleursAuxJoueurs();
 
         while (grilleJeu.etreGagnantePourJoueur(joueurCourant) == false && grilleJeu.etreRemplie() == true){
             
@@ -182,6 +183,7 @@ public class Partie {
                         grilleJeu.ajouterJetonDansColonne(jeton, colonne);
                         if( grilleJeu.CelluleJeu[i][colonne].presenceDesintegrateur() == true){
                             joueurCourant.nombreDesintegrateurs += 1 ;
+                            grilleJeu.CelluleJeu[i][colonne].desintegrateur = false ; 
                         }
                         grilleJeu.afficherGrilleSurConsole();
                         break;
@@ -366,7 +368,7 @@ public class Partie {
 
         Random rn = new Random();
 
-        int temp = rn.nextInt(1) ;
+        int temp = rn.nextInt(2) ;
 
         if (temp == 1){
 
@@ -376,7 +378,7 @@ public class Partie {
 
         }
 
-        else{
+        if (temp==0){
 
             ListeJoueurs[0].couleur = "jaune";
 

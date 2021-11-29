@@ -53,14 +53,14 @@ public class Grille {
     public void afficherGrilleSurConsole(){
         for( int i=0; i<6; i++){
             for( int j=0; j<7; j++){
-                if (CelluleJeu[i][j].presenceTrouNoir()==false && CelluleJeu[i][j].presenceDesintegrateur()==true){
+                if (CelluleJeu[i][j].presenceTrouNoir()==true && CelluleJeu[i][j].presenceDesintegrateur()==true){
                         System.out.print("\033[34m O");
                 }
                 else if (CelluleJeu[i][j].presenceTrouNoir()==true){
                     System.out.print("\033[34m O");
                 }
-                else if (CelluleJeu[i][j].presenceDesintegrateur()==true){
-                    System.out.print("\033[35m O");
+                else if(CelluleJeu[i][j].presenceDesintegrateur()==true){
+                    System.out.print("\033[32m O");
                 }
                 else if( lireCouleurDuJeton(i,j)=="rouge"){
                    System.out.print("\033[31m O");
