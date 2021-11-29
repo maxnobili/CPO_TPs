@@ -9,17 +9,19 @@ package sp4_console_nobili_corlay;
  * @author maxim
  */
 public class Cellule { 
+    // creation des attributs utiles a la classe cellule
     Jeton jetonCourant;
     boolean trouNoir;
     boolean desintegrateur;
     
+    // initialisation des attributs utiles a la classe cellule
     public Cellule(){
         jetonCourant = null ;
         desintegrateur = false;
         trouNoir = false;
                 
     }
-    
+    // affecte la valeur du jeton du joueur a la valeur du jeton courant 
     public boolean affecterJeton(Jeton JetonJoueur){
         if(jetonCourant == null){
             jetonCourant = JetonJoueur ;
@@ -33,11 +35,12 @@ public class Cellule {
     public Jeton recupererJeton(){
         return jetonCourant;
     }
+    // supprime le jeton du jeton courant
     public boolean supprimerJeton(){
         jetonCourant = null;
         return true;
     }
-    
+    // place un trou noir 
     public boolean placerTrouNoir(){
         if(trouNoir == false){
             trouNoir = true;
@@ -47,7 +50,7 @@ public class Cellule {
             return false;
         }
     }
-    
+    // place un desintegrateur 
     public boolean placerDesintegrateur(){
         if(desintegrateur == false){
             desintegrateur = true;
@@ -58,6 +61,7 @@ public class Cellule {
         }
     }
     
+    // regarde si un trou noir est present 
     public boolean presenceTrouNoir(){
         if (trouNoir == true){
             return true;
@@ -67,6 +71,7 @@ public class Cellule {
         }
     }
     
+    // regarde si un desintegrateur est present     
     public boolean presenceDesintegrateur(){
         if(desintegrateur == true){
             return true;
@@ -74,6 +79,7 @@ public class Cellule {
         return false ;
     }
     
+    // lis la couleur du jeton courant 
     public String lireCouleurDuJeton(){
         if(jetonCourant!=null){
             return jetonCourant.Couleur ;
@@ -83,6 +89,7 @@ public class Cellule {
         }
     }
     
+    // recupere le desintegrateur 
     public boolean recupererDesintegrateur(){
         if(desintegrateur == true){
             desintegrateur = false;
@@ -91,6 +98,7 @@ public class Cellule {
         return false ;
     }
     
+    // active le trou noir
     public boolean activerTrouNoir(){
         if (trouNoir == true && jetonCourant == null){
             jetonCourant = null;

@@ -10,9 +10,11 @@ package sp4_console_nobili_corlay;
  * @author maxim
  */
 public class Joueur { 
+    
+    // creation des attributs de la lcasse joueur
     String nom ;
     String couleur ;
-    Jeton [] ListeJetons = new Jeton[21];
+    Jeton [] ListeJetons = new Jeton[21]; // tableau avec le nombre de jeton en possession du joueur
     int nombreJetonsRestants = ListeJetons.length ;
     int nombreDesintegrateurs = 0 ;
     
@@ -24,6 +26,7 @@ public class Joueur {
         couleur = CouleurJoueur ;
     }
     
+    // ajoute un jeton dans le tableau de jeton du joueur 
     public boolean ajouterJeton(Jeton JetonJoueur){
            if(nombreJetonsRestants!=21){
                ListeJetons[nombreJetonsRestants]=JetonJoueur ;
@@ -37,6 +40,7 @@ public class Joueur {
         nombreDesintegrateurs = nombreDesintegrateurs + 1 ;
     }
     
+    // utilise un desintegrateur et modifie le nombre de desintegrateur du joueur
     public boolean utiliserDesintegrateur(){
         if (nombreDesintegrateurs == 0){
             return false ;

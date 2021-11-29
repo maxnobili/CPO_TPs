@@ -185,7 +185,7 @@ public class Partie {
                 }
                 Jeton jeton = joueurCourant.ListeJetons[jetrest-1];
 
-                // 
+                // parcourt la cellule de bas en haut 
                 for(int i=5; i>=0; i--){
 
                     if (grilleJeu.celluleOccupee(i , colonne)== false && grilleJeu.CelluleJeu[i][colonne].presenceTrouNoir() == false ){
