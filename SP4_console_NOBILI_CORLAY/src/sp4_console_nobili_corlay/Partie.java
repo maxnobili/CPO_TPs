@@ -12,19 +12,22 @@ import java.util.Scanner;
  * @author maxim
  */
 public class Partie { 
-
+    
     Scanner scanner = new Scanner(System.in);
-
+    
+    // creation du tableau pour repertorier le nom de chaque joueur
     Joueur [] ListeJoueurs = new Joueur [2];
-
+    
+    // creation des attributs utiles à la classe partie
     Joueur joueurCourant;
 
     Grille grilleJeu;
-
+    
+    // variable pour les jetons restants
     int jetrest = 0;
 
   
-
+    // affectation des noms des joueurs a leur place dans le tableau
     public Partie(Joueur joueur1,Joueur joueur2){
 
        ListeJoueurs[0] = joueur1;
@@ -38,22 +41,19 @@ public class Partie {
     public void initialiserPartie(){
 
         grilleJeu = new Grille();
-    
-        Random ltnDs = new Random();
-        int lignetnDs = ltnDs.nextInt(5) ;
-        Random ctnDs = new Random();
-        int colonnetnDs = ctnDs.nextInt(6) ;
+        
+        // placement des deux trous noirs et desintegrateurs qui doivent être sur la meme case 
+        Random rdm = new Random();
+        int lignetnDs = rdm.nextInt(5) ;
+        int colonnetnDs = rdm.nextInt(6) ;
         grilleJeu.placerTrouNoir(lignetnDs, colonnetnDs);
         grilleJeu.placerDesintegrateur(lignetnDs, colonnetnDs);
-        
-        Random ltnDs2 = new Random();
-        int lignetnDs2 = ltnDs2.nextInt(5) ;
-        Random ctnDs2 = new Random();
-        int colonnetnDs2 = ctnDs2.nextInt(6) ;
+        int lignetnDs2 = rdm.nextInt(5) ;
+        int colonnetnDs2 = rdm.nextInt(6) ;
         grilleJeu.placerTrouNoir(lignetnDs2, colonnetnDs2);
         grilleJeu.placerDesintegrateur(lignetnDs2, colonnetnDs2);
 
-        
+        // boucle qui affecte trois trous noirs en verifiant qu'il n'y est pas deja un trou noir deja present 
         for (int i = 0 ;i <= 2; i++){
             
             Random tn = new Random();
@@ -62,17 +62,21 @@ public class Partie {
 
             int colonnetn = tn.nextInt(6) ;
             
-            while(grilleJeu.CelluleJeu[lignetn][colonnetn].presenceTrouNoir()==true){
-               
-                lignetn = tn.nextInt(5) ;
+            if(grilleJeu.CelluleJeu[lignetn][colonnetn].presenceTrouNoir()==true){
+                while(grilleJeu.CelluleJeu[lignetn][colonnetn].presenceTrouNoir()==true){
 
-                colonnetn = tn.nextInt(6) ;
+                    lignetn = tn.nextInt(5) ;
+
+                    colonnetn = tn.nextInt(6) ;
+                }
+                grilleJeu.placerTrouNoir(lignetn, colonnetn);
             }
-           
-            grilleJeu.placerTrouNoir(lignetn, colonnetn);
-
-        }    
-
+            else{
+                grilleJeu.placerTrouNoir(lignetn, colonnetn);
+            }
+        } 
+        
+        // boucle qui affecte trois trous desintegrateurs en verifiant qu'il n'y est pas deja un trou noir ou un desintegrateur deja present 
         for (int i = 0 ;i <= 2; i++){
 
             Random ds = new Random();
@@ -81,19 +85,23 @@ public class Partie {
 
             int colonneds = ds.nextInt(6) ;
             
-            while(grilleJeu.CelluleJeu[ligneds][colonneds].presenceDesintegrateur()==true){
-               
-                ligneds = ds.nextInt(5) ;
+            if(grilleJeu.CelluleJeu[ligneds][colonneds].presenceDesintegrateur()==true || grilleJeu.CelluleJeu[ligneds][colonneds].presenceTrouNoir()==true){
+                while(grilleJeu.CelluleJeu[ligneds][colonneds].presenceDesintegrateur()==true){
 
-                colonneds = ds.nextInt(6) ;
+                    ligneds = ds.nextInt(5) ;
+
+                    colonneds = ds.nextInt(6) ;
+                }
+                grilleJeu.placerDesintegrateur(ligneds, colonneds);
             }
-
-            grilleJeu.placerDesintegrateur(ligneds, colonneds);
-            
+            else{
+                grilleJeu.placerDesintegrateur(ligneds, colonneds);
+            }
         }
+        // attribution d'une couleur pour chaque joueur
         attribuerCouleursAuxJoueurs();
-        System.out.println(ListeJoueurs[0].couleur);
         
+        // donne 21 jeton de la couleur du joueur a chaque joueur
         for(int i=0; i<21 ; i++){
 
            ListeJoueurs[0].ListeJetons[i] = new Jeton(ListeJoueurs[0].couleur);
@@ -109,7 +117,8 @@ public class Partie {
   
 
     public void debuterPartie(){
-
+        
+        // choisi aleatoirement quel joueur va commencer
         Random rn = new Random();
 
         int jdep = rn.nextInt(1) ;
@@ -126,39 +135,43 @@ public class Partie {
 
         }
 
-
+        // boucle pour executer les tours de chaque jouueur
         while (grilleJeu.etreGagnantePourJoueur(joueurCourant) == false && grilleJeu.etreRemplie() == true){
             
+            // affichage pour savoir qui commence et quelles options s'offrent a lui
             System.out.println(joueurCourant.nom);
             System.out.println(" Vous avez deux choix possibles, jouer un jeton (1) ou recuperer un jeton (2) ou utiliser un désintégrateur (3).");
             System.out.println(" Tapez le chiffre correspond à l'action que vous souhaitez éffectuer");
+            
+            // demande au joueur quel choix veut il faire
             int choix = scanner.nextInt();
+            
+            // choix 1 : placer un jeton
             if (choix == 1){
             
                 System.out.println(joueurCourant.nom);
-
+                
                 System.out.println("Donnez la colonne dans laquelle vous souhaitez jouer:");
-
+                
+                //demande la colonne ou on souhaite jouer
                 int colonne = scanner.nextInt();
-
+                
+                // verification si la colonne choisie est en dehors du tableau et si l colonne est remplie
                 if (colonne != 0 && colonne != 1 && colonne != 2 && colonne != 3 && colonne != 4 && colonne != 5 && colonne != 6 ){
 
                     System.out.println("Vous avez commit l'irréparable, la colonne n'existe pas...Réessayez");
 
                     continue;
-
                 }
-
                 if (grilleJeu.colonneRemplie(colonne) == true){
 
                     System.out.println("La colonne est remplie");
 
                     continue;
-
                 }
 
+                // boucle qui enleve un jeton au joueur courant si il lui en reste un
                 for (int i = 20 ; i > 0 ; i--){
-
                     if (joueurCourant.ListeJetons[i] != null){
 
                         jetrest = i;
@@ -170,13 +183,9 @@ public class Partie {
                     }
 
                 }
-
                 Jeton jeton = joueurCourant.ListeJetons[jetrest-1];
 
-
-
-
-
+                // 
                 for(int i=5; i>=0; i--){
 
                     if (grilleJeu.celluleOccupee(i , colonne)== false && grilleJeu.CelluleJeu[i][colonne].presenceTrouNoir() == false ){
