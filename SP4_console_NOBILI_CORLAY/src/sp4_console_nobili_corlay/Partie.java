@@ -187,9 +187,12 @@ public class Partie {
 
                 // parcourt la cellule de bas en haut 
                 for(int i=5; i>=0; i--){
-
+//On effectue une bouclet   tant que i est supérieure à 0
                     if (grilleJeu.celluleOccupee(i , colonne)== false && grilleJeu.CelluleJeu[i][colonne].presenceTrouNoir() == false ){
+                        //Dans le cas la celule est innocupéé et qu'il n'y a pas de trou noir
+                        //On ajoute un jeton
                         grilleJeu.ajouterJetonDansColonne(jeton, colonne);
+                        // Si il y a un desintegrateur ,on le recupere et la cellule qui le contient redevient normale
                         if( grilleJeu.CelluleJeu[i][colonne].presenceDesintegrateur() == true){
                             joueurCourant.nombreDesintegrateurs += 1 ;
                             grilleJeu.CelluleJeu[i][colonne].desintegrateur = false ; 
@@ -198,7 +201,7 @@ public class Partie {
                         break;
                     }
                     if(grilleJeu.CelluleJeu[i][colonne].presenceTrouNoir() == true){
-
+// dans le cas ou on a un trou noir on le desactive et le jeton n'est pas joué
                         grilleJeu.CelluleJeu[i][colonne].activerTrouNoir();
                         grilleJeu.afficherGrilleSurConsole();
 
@@ -210,10 +213,10 @@ public class Partie {
 
 
                 if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
-
+//On test si un joueur est gagnant pour eventuellement mettre fin a la partie
                     break;
                 }
-
+//Ici on change le joueur courant
                 if (joueurCourant == ListeJoueurs[1]){
 
                     joueurCourant = ListeJoueurs[0];
@@ -226,11 +229,13 @@ public class Partie {
 
                 }
             }
+            // Le cas ou le joueur decide de récupérer un jeton
             if (choix == 2){              
                 System.out.println(" Dans quelle colonne souhaitez vous récuperer votre jeton?");
                 int colonner = scanner.nextInt();
                 System.out.println(" Dans quelle ligne souhaitez vous récuperer votre jeton?");
                 int ligner = scanner.nextInt();
+// Après lui avoir demander où on veriefie la validité de la case et si elle est occupéé
                 if (colonner != 0 && colonner != 1 && colonner != 2 && colonner != 3 && colonner != 4 && colonner != 5 && colonner != 6 ){
                     System.out.println("Vous avez commit l'irréparable, la colonne n'existe pas...Réessayez");
                     continue;
@@ -243,6 +248,8 @@ public class Partie {
                     System.out.println("Il n'y a pas de jeton dans cette case");
                     continue;
                 }
+      //Apres les tests on lance la methode sur la cellule considérée
+      // et on ajoute un jeton dans la liste
                 grilleJeu.CelluleJeu[ligner][colonner].recupererJeton();
                 for (int i = 0 ; i <= 20 ; i++){
                     if (joueurCourant.ListeJetons[i] == null){
@@ -252,9 +259,11 @@ public class Partie {
                         break;
                     }
                 }
-                
+        // on supprime le jeton     
                 grilleJeu.CelluleJeu[ligner][colonner].supprimerJeton();
+        // on tasse la grille 
                 grilleJeu.tasserGrille(colonner);
+                
                 grilleJeu.afficherGrilleSurConsole();
                 
                 if (joueurCourant == ListeJoueurs[1]){
@@ -269,13 +278,14 @@ public class Partie {
 
                 }
             }
+            //Cas ou on joue un desintegrateur
             if (choix==3){
-                
+                //on test la la validité du choix, si le joueur a bien un desintegrateur
                 System.out.println(" Dans quelle colonne souhaitez vous désintégrer un jeton?");
                 int colonnedes = scanner.nextInt();
                 System.out.println(" Dans quelle ligne souhaitez vous désintégrer un jeton?");
                 int lignedes = scanner.nextInt();
-                
+                // On test si la case existe
                 if (colonnedes != 0 && colonnedes != 1 && colonnedes != 2 && colonnedes != 3 && colonnedes != 4 && colonnedes != 5 && colonnedes != 6 ){
                     System.out.println("Vous avez commit l'irréparable, la colonne n'existe pas...Réessayez");
                     continue;
@@ -284,25 +294,26 @@ public class Partie {
                     System.out.println("Vous avez commit l'irréparable, la ligne n'existe pas...Réessayez");
                     continue;
                 }
+                // On test si la case est occupée
                 if (grilleJeu.celluleOccupee(lignedes , colonnedes)== false && grilleJeu.CelluleJeu[lignedes][colonnedes].lireCouleurDuJeton() == joueurCourant.couleur){
                     System.out.println("Vous ne pouvez choisir qu'un jeton adversaire !");
                     continue;
                 }
-                
+                //Enfin on supprime le jeton
                 grilleJeu.CelluleJeu[lignedes][colonnedes].supprimerJeton();
                 grilleJeu.tasserGrille(colonnedes);
                 grilleJeu.afficherGrilleSurConsole();
                 joueurCourant.utiliserDesintegrateur() ;
-                
+                //on verifie si il ya un gagnant
                 if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
-                    
+                   // on change de joueur 
                     if (joueurCourant == ListeJoueurs[1]){
                         joueurCourant = ListeJoueurs[0] ;
                     }
                     else{
                         joueurCourant = ListeJoueurs[1];
                     }
-                    
+                    // on verifie si l'autre est gagnant 
                     if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == false){
                         break;
                     }
@@ -321,7 +332,8 @@ public class Partie {
                         break;
                     }
                 }
-                
+                // on verifie si les deux joueurs sont gagnant 
+                // si c'est le cas une faute de jeu est commise
                 if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
                     
                     if (joueurCourant == ListeJoueurs[1]){
@@ -352,7 +364,7 @@ public class Partie {
                 }
             }
         }
-
+        //on affiche le gagnant
         if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true){
 
             if (joueurCourant == ListeJoueurs[1]){
@@ -374,7 +386,7 @@ public class Partie {
   
 
     public void attribuerCouleursAuxJoueurs(){
-
+//on decide d'attribuer aleatoirement la couleur aux joueurs
         Random rn = new Random();
 
         int temp = rn.nextInt(2) ;
